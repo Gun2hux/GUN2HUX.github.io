@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>หน้าแนะนำตัวเอง</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #6dd5ed, #2193b0);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.2rem;
+      max-width: 500px;
+      margin: 15px 0 30px;
+    }
+
+    .social-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #ffdd57;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="profile-img" src="https://i.pravatar.cc/300?img=13" alt="รูปโปรไฟล์" />
+    <h1>สวัสดีครับ ผมชื่อธนกร</h1>
+    <p>
+      เป็นนักพัฒนาเว็บที่มีความหลงใหลในเทคโนโลยีใหม่ๆ และการออกแบบ UI/UX ชอบเรียนรู้สิ่งใหม่ๆ ทุกวัน
+    </p>
+    <div class="social-links">
+      <a href="https://github.com/" target="_blank">🌐 GitHub</a>
+      <a href="https://linkedin.com/" target="_blank">💼 LinkedIn</a>
+      <a href="mailto:you@example.com">✉️ Email</a>
+    </div>
+  </div>
+</body>
+</html>
