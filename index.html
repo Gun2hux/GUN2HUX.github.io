@@ -1,159 +1,283 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>แนะนำตัว - ธนกร</title>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio – Dark Neon Intro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg:#090a10;          /* พื้นหลังเข้ม */
+      --panel:#0e1018;       /* พื้นผสมฟ้า */
+      --txt:#e6f0ff;         /* ตัวอักษรอ่อน */
+      --muted:#9aa7c7;       /* ตัวอักษรรอง */
+      --neon1:#00e6ff;       /* ฟ้าเรือง */
+      --neon2:#8a2eff;       /* ม่วงเรือง */
+      --neon3:#00ffa3;       /* เขียวมิ้นต์ */
+      --accent:#ff2e89;      /* ชมพูฟลูออเรสเซนต์ */
+      --glass: rgba(255,255,255,.06);
+      --radius: 18px;
+      --shadow-neon: 0 0 12px var(--neon1), 0 0 28px color-mix(in srgb, var(--neon1), transparent 30%);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--txt); background:var(--bg);
+      font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      line-height:1.6;
+      overflow-x:hidden;
     }
 
-    body {
-      font-family: 'Prompt', sans-serif;
-      background-color: #0f172a;
-      color: #f1f5f9;
-      line-height: 1.6;
+    /* พื้นหลังไล่เฉด + เส้นกริดนีออน */
+    .bg-wrap{position:fixed; inset:0; pointer-events:none; z-index:-2}
+    .bg-grad{
+      position:absolute; inset:-20% -10% -10% -10%;
+      background:
+        radial-gradient(60% 60% at 10% 10%, color-mix(in srgb, var(--neon2) 18%, transparent), transparent 60%),
+        radial-gradient(60% 60% at 90% 10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+        radial-gradient(60% 60% at 50% 90%, color-mix(in srgb, var(--neon1) 16%, transparent), transparent 60%),
+        linear-gradient(180deg, #05060a 0%, #0b0e16 60%, #06070d 100%);
+      filter:saturate(120%);
+    }
+    .grid{
+      position:absolute; inset:0; background:
+        linear-gradient(transparent 96%, rgba(255,255,255,.06) 96%),
+        linear-gradient(90deg, transparent 96%, rgba(255,255,255,.06) 96%);
+      background-size: 40px 40px;
+      mask: radial-gradient(ellipse at center, black 40%, transparent 80%);
+      opacity:.25;
     }
 
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 60px 20px;
-      text-align: center;
+    header{
+      position:sticky; top:0; backdrop-filter: blur(10px);
+      background:linear-gradient(180deg, rgba(10,12,20,.65), rgba(10,12,20,.15) 80%, transparent);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      z-index:20;
+    }
+    .container{max-width:1080px; margin-inline:auto; padding:18px 22px}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800}
+    .dot{width:10px;height:10px;border-radius:999px; background:var(--neon1); box-shadow:0 0 12px var(--neon1)}
+    nav a{color:var(--muted); text-decoration:none; margin-left:18px; font-weight:600}
+    nav a:hover{color:var(--txt)}
+
+    .hero{
+      padding:84px 22px 56px; display:grid; grid-template-columns:1.1fr .9fr; gap:26px; align-items:center
+    }
+    @media (max-width: 900px){ .hero{grid-template-columns:1fr; padding-top:56px} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius);
+      box-shadow:0 10px 40px rgba(0,0,0,.45);
+      position:relative; overflow:hidden
+    }
+    .card::before{
+      content:""; position:absolute; inset:-2px; border-radius:inherit; padding:2px;
+      background: conic-gradient(from 180deg, var(--neon1), var(--neon2), var(--accent), var(--neon1));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; opacity:.35; filter: blur(6px);
     }
 
-    .profile-img {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 4px solid #38bdf8;
-      object-fit: cover;
-      margin-bottom: 25px;
+    .avatar{
+      width:160px; height:160px; border-radius:28px; background:linear-gradient(135deg, #111, #222);
+      border:1px solid rgba(255,255,255,.18); box-shadow: var(--shadow-neon);
+      display:grid; place-items:center; position:relative; overflow:hidden
+    }
+    .avatar svg{width:80px; height:80px; opacity:.9}
+    .glow{ position:absolute; inset:auto; left:50%; bottom:-18%; translate:-50% 0; width:160%; height:70%;
+      background: radial-gradient(50% 60% at 50% 0%, color-mix(in srgb, var(--neon1) 45%, transparent), transparent 70%);
+      filter: blur(18px); opacity:.6; pointer-events:none;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      color: #38bdf8;
-      margin-bottom: 10px;
+    h1{
+      font-family:"Orbitron", sans-serif; font-size: clamp(34px, 4.6vw, 60px);
+      line-height:1.05; margin:0 0 10px; letter-spacing:.02em;
+      text-shadow: 0 0 24px color-mix(in srgb, var(--neon2) 35%, transparent);
+    }
+    .subtitle{color:var(--muted); font-weight:600; font-size:clamp(14px, 1.9vw, 18px)}
+
+    .badges{display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 8px}
+    .badge{padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.03);
+      font-size:12px; letter-spacing:.4px; text-transform:uppercase; font-weight:800;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 0 18px color-mix(in srgb, var(--neon1) 15%, transparent);
     }
 
-    h2 {
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: #94a3b8;
-      margin-bottom: 30px;
+    .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px}
+    .btn{
+      --ring: var(--neon1);
+      padding:12px 18px; border-radius:12px; background:var(--glass);
+      border:1px solid rgba(255,255,255,.18); color:var(--txt); font-weight:800; text-decoration:none;
+      backdrop-filter: blur(8px);
+    }
+    .btn.primary{background:linear-gradient(180deg, color-mix(in srgb, var(--neon1) 22%, transparent), rgba(255,255,255,.05));
+      box-shadow: 0 8px 24px color-mix(in srgb, var(--neon1) 28%, transparent);
+    }
+    .btn:hover{outline:2px solid color-mix(in srgb, var(--ring) 55%, transparent)}
+
+    /* Sections */
+    section{padding:42px 22px}
+    .section-title{font-family:"Orbitron", sans-serif; letter-spacing:.12em; text-transform:uppercase; font-weight:700; color:#d6e1ff; opacity:.9}
+
+    .skills{display:flex; flex-wrap:wrap; gap:12px; margin-top:14px}
+    .chip{--c:var(--neon3); border-radius:12px; padding:10px 12px; font-weight:700; font-size:14px; color:var(--txt);
+      border:1px solid rgba(255,255,255,.14); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow: 0 0 0 0 rgba(0,0,0,0), 0 0 18px color-mix(in srgb, var(--c) 24%, transparent);
     }
 
-    p.about {
-      max-width: 600px;
-      margin: 0 auto 30px;
-      color: #cbd5e1;
-    }
+    .grid-3{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+    @media (max-width: 980px){ .grid-3{grid-template-columns:1fr 1fr} }
+    @media (max-width: 640px){ .grid-3{grid-template-columns:1fr} }
 
-    .btn-group {
-      margin-top: 30px;
-    }
+    .proj{position:relative; padding:18px; min-height:160px}
+    .proj h3{margin:6px 0 6px}
+    .proj p{color:var(--muted); margin:0}
+    .proj .tag{position:absolute; top:14px; right:14px; font-size:12px; font-weight:800; letter-spacing:.06em; opacity:.8}
+    .proj:hover{outline:1.5px solid color-mix(in srgb, var(--neon2) 50%, transparent); box-shadow:0 8px 32px rgba(0,0,0,.5)}
 
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 25px;
-      border: 2px solid #38bdf8;
-      color: #38bdf8;
-      font-weight: bold;
-      text-decoration: none;
-      margin: 0 10px;
-      transition: 0.3s;
-    }
+    footer{padding:36px 22px 64px; color:var(--muted); text-align:center}
 
-    .btn:hover {
-      background-color: #38bdf8;
-      color: #0f172a;
+    /* เอฟเฟกต์เส้นส่องแสง
+       (ใช้ pseudo elements สร้างเส้นวิ่ง ๆ ) */
+    .runner{
+      position:absolute; inset:0; pointer-events:none; opacity:.6
     }
-
-    .skills {
-      margin-top: 50px;
+    .runner::before, .runner::after{
+      content:""; position:absolute; top:0; bottom:0; width:2px; border-radius:2px;
+      background:linear-gradient(180deg, transparent, var(--neon1), transparent);
+      filter: blur(.5px);
+      animation: slideY 4s linear infinite;
     }
+    .runner::after{left:auto; right:22%; animation-duration:6.2s; background:linear-gradient(180deg, transparent, var(--accent), transparent)}
+    @keyframes slideY{0%{transform:translateY(-120%)}100%{transform:translateY(120%)}}
 
-    .skills h3 {
-      margin-bottom: 15px;
-      color: #f8fafc;
-    }
-
-    .skill-icons i {
-      font-size: 2rem;
-      margin: 10px;
-      color: #38bdf8;
-    }
-
-    .social {
-      margin-top: 40px;
-    }
-
-    .social a {
-      margin: 0 10px;
-      color: #94a3b8;
-      font-size: 1.5rem;
-      transition: 0.3s;
-    }
-
-    .social a:hover {
-      color: #38bdf8;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      .btn {
-        margin: 10px 5px;
-        display: block;
-      }
-    }
+    .flicker{animation: flicker 3.4s infinite}
+    @keyframes flicker{0%,19%,22%,63%,64%,70%,100%{text-shadow:0 0 6px var(--neon2),0 0 18px color-mix(in srgb, var(--neon2) 55%, transparent)}20%,21%,65%,69%{text-shadow:none}}
   </style>
 </head>
 <body>
-
-  <div class="container">
-    <img class="profile-img" src="https://i.pravatar.cc/300?img=36" alt="รูปโปรไฟล์" />
-    <h1>ธนกร จิตรวิจิตร</h1>
-    <h2>Web Developer | UI/UX Enthusiast | สายเทคโนโลยี</h2>
-
-    <p class="about">
-      👋 สวัสดีครับ ผมเป็นนักพัฒนาเว็บไซต์ที่ชื่นชอบการสร้างสิ่งใหม่ ๆ ด้วยเทคโนโลยีสมัยใหม่ เช่น React, Node.js, Tailwind และยังหลงใหลในการออกแบบ UI ที่ใช้งานง่ายและสวยงาม เป้าหมายของผมคือการสร้างประสบการณ์ผู้ใช้ที่ดีที่สุด
-    </p>
-
-    <div class="btn-group">
-      <a href="#" class="btn">📁 ดูผลงาน</a>
-      <a href="mailto:youremail@example.com" class="btn">✉️ ติดต่อ</a>
-    </div>
-
-    <div class="skills">
-      <h3>ทักษะที่ถนัด</h3>
-      <div class="skill-icons">
-        <i class="fab fa-html5" title="HTML5"></i>
-        <i class="fab fa-css3-alt" title="CSS3"></i>
-        <i class="fab fa-js" title="JavaScript"></i>
-        <i class="fab fa-react" title="React"></i>
-        <i class="fab fa-node-js" title="Node.js"></i>
-        <i class="fab fa-git-alt" title="Git"></i>
-      </div>
-    </div>
-
-    <div class="social">
-      <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
-    </div>
+  <div class="bg-wrap">
+    <div class="bg-grad"></div>
+    <div class="grid"></div>
   </div>
 
+  <header>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between">
+      <div class="brand"><span class="dot"></span> <span>YOURNAME<span style="opacity:.55">.dev</span></span></div>
+      <nav>
+        <a href="#about">เกี่ยวกับฉัน</a>
+        <a href="#skills">ทักษะ</a>
+        <a href="#projects">โปรเจกต์</a>
+        <a href="#contact">ติดต่อ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="badges">
+          <span class="badge">Designer</span>
+          <span class="badge">Frontend</span>
+          <span class="badge">Motion</span>
+        </div>
+        <h1 class="flicker">สวัสดี ฉันคือ <span style="color:var(--neon1)">Your Name</span></h1>
+        <p class="subtitle">นักออกแบบ/นักพัฒนาเว็บ ที่ชอบสร้างประสบการณ์ดิจิทัลสไตล์ <strong>Dark Neon</strong> ให้ทั้งสวยและใช้งานง่าย</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">ดูผลงาน</a>
+          <a class="btn" href="#contact">ติดต่อฉัน</a>
+        </div>
+      </div>
+      <div class="card" style="padding:24px; display:flex; gap:18px; align-items:center; justify-content:center; min-height:220px;">
+        <div class="avatar">
+          <!-- Avatar Placeholder Icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="8" r="4" stroke-width="1.6" />
+            <path d="M4 21a8 8 0 0 1 16 0" stroke-width="1.6" />
+          </svg>
+          <div class="glow"></div>
+        </div>
+        <div>
+          <div style="font-weight:800; letter-spacing:.08em; text-transform:uppercase; opacity:.8">สถานที่</div>
+          <div>Bangkok, Thailand</div>
+          <div style="height:10px"></div>
+          <div style="font-weight:800; letter-spacing:.08em; text-transform:uppercase; opacity:.8">สถานะ</div>
+          <div>เปิดรับงานฟรีแลนซ์ & Remote</div>
+        </div>
+        <div class="runner"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="card" style="padding:22px 22px 6px">
+        <div class="section-title">About</div>
+        <h2 style="margin:6px 0 6px">แนะนำตัวสั้น ๆ</h2>
+        <p style="color:var(--muted); margin-top:0">
+          ฉันชอบผสมผสานโทนมืดกับแสงนีออน เพื่อเน้นโครงสร้างข้อมูลและจุดโฟกัสของผู้ใช้
+          โค้ดที่ฉันเขียนมักเน้นความสะอาด ประสิทธิภาพ และการเข้าถึง (a11y).
+        </p>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="card" style="padding:22px">
+        <div class="section-title">Skills</div>
+        <div class="skills">
+          <span class="chip" style="--c:var(--neon1)">HTML</span>
+          <span class="chip" style="--c:var(--neon1)">CSS</span>
+          <span class="chip" style="--c:var(--neon2)">JavaScript</span>
+          <span class="chip" style="--c:var(--neon3)">React</span>
+          <span class="chip" style="--c:var(--accent)">UI/UX</span>
+          <span class="chip" style="--c:#ffd166">Motion</span>
+          <span class="chip" style="--c:#2ee6ff">GSAP</span>
+          <span class="chip" style="--c:#ff7ec3">Figma</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-title" style="margin-bottom:10px">Projects</div>
+      <div class="grid-3">
+        <article class="card proj">
+          <span class="tag">UI</span>
+          <h3>Neon Dashboard</h3>
+          <p>แดชบอร์ดโทนนีออน พร้อมกราฟและการ์ดแบบ glassmorphism</p>
+        </article>
+        <article class="card proj">
+          <span class="tag">Web</span>
+          <h3>Portfolio v3</h3>
+          <p>พอร์ตส่วนตัวโหลดไว รองรับมือถือ และโหมดมืด/สว่าง</p>
+        </article>
+        <article class="card proj">
+          <span class="tag">Motion</span>
+          <h3>Hero Motion Kit</h3>
+          <p>ชุดเอฟเฟกต์โมชันสำหรับหน้าแลนดิ้ง สไตล์นีออน</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="card" style="padding:22px; display:grid; gap:12px">
+        <div class="section-title">Contact</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap">
+          <a class="btn" href="mailto:you@example.com" aria-label="email">you@example.com</a>
+          <a class="btn" href="#" aria-label="github">GitHub</a>
+          <a class="btn" href="#" aria-label="linkedin">LinkedIn</a>
+        </div>
+        <small style="color:var(--muted)">© 2025 Your Name. All rights reserved.</small>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    สร้างด้วย ♥ และพลังงานจากกาแฟ
+  </footer>
 </body>
 </html>
