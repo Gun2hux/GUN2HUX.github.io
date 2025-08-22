@@ -1,34 +1,26 @@
-let monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-let timeElement = document.getElementById("timeSpan");
-let dateElement = document.getElementById("dateSpan");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="css/digitalclock.css">
+</head>
+<body>
+    
+
+    <div class="clock-body">
+
+        <div class="inner-body">
+            <div class="clock">
+        
+            </div>
+        </div>
+
+    </div>
 
 
-setInterval(() => {
-  let dateObj = new Date();
-
-  let time = getTime(dateObj)
-  let date = getDate(dateObj);
-
-  timeElement.innerHTML = time;
-  dateElement.innerHTML = date;
-}, 1000);
-
-function getTime(dateObj) {
-  let hour = appendZero(dateObj.getHours());
-  let minutes = appendZero(dateObj.getMinutes());
-  let seconds = appendZero(dateObj.getSeconds());
-
-  return `${hour}:${minutes}:${seconds}`;
-}
-
-function getDate(date) {
-  let day = appendZero(date.getDate());
-  let month = monthArray[date.getMonth()];
-  let year = date.getFullYear();
-
-  return `${day} ${month} ${year}`;
-}
-
-function appendZero(num) {
-  return num < 10 ? `0${num}` : num;
-}
+    <script src="js/digitalclock.js"></script>
+</body>
+</html>
