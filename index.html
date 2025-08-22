@@ -3,106 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แนะนำตัว</title>
+    <title>ทีม LAP: จากมารีย์ฯ สู่เส้นทางวิศวกรรมยานยนต์</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* สไตล์ทั้งหมดจากไฟล์ style.css */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Kanit', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
             margin: 0;
             padding: 0;
-            color: #fff;
-            background-color: #121212;
-            overflow-x: hidden;
+            line-height: 1.8;
         }
-
-        .page {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-
-        .page.active {
-            opacity: 1;
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #007bff;
         }
-
-        h1 {
-            font-size: 4em;
-            text-shadow: 0 0 10px #0ff;
-            animation: neon-pulse 1.5s ease-in-out infinite alternate;
+        .header h1 {
+            color: #004085;
+            font-weight: 700;
+            font-size: 2.5em;
+            margin: 0;
         }
-
-        @keyframes neon-pulse {
-            from {
-                text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 15px #0ff;
-            }
-            to {
-                text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff;
-            }
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+        .image-banner {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content {
+            padding: 30px 0;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #007bff;
+            font-size: 2em;
+            border-left: 5px solid #007bff;
+            padding-left: 15px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            background-color: #e9f5ff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #007bff;
+        }
+        strong {
+            color: #004085;
+        }
+        .contact {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
+        }
+        .contact p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .highlight {
+            font-weight: 700;
+            color: #d9534f;
         }
     </style>
 </head>
 <body>
-    <section id="welcome" class="page">
-        <h1>ยินดีต้อนรับ</h1>
-        <p>สวัสดีครับ ผมชื่อ...</p>
-    </section>
 
-    <section id="about" class="page">
-        <h2>เกี่ยวกับฉัน</h2>
+    <div class="container">
+        <div class="header">
+            <h1>ทีม LAP: จากมารีย์ฯ สู่เส้นทางวิศวกรรมยานยนต์</h1>
+            <p>ทีมนักเรียนจากวิทยาลัยเทคโนโลยีมารีย์บริหารธุรกิจ จังหวัดนครราชสีมา</p>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1549419142-3a55b3c3c7e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="รูปทีมกำลังทำงานกับรถยนต์" class="image-banner">
+
         <div class="content">
-            <p>ผมเป็น...</p>
+            <div class="section">
+                <p>
+                    สวัสดีครับ พวกเราคือ <strong>ทีม LAP</strong> ทีมเยาวชนจากวิทยาลัยเทคโนโลยีมารีย์บริหารธุรกิจ จังหวัดนครราชสีมา ที่มีความฝันและความหลงใหลในเรื่องรถยนต์อย่างแท้จริง
+                </p>
+                <p>
+                    พวกเราเชื่อว่า <span class="highlight">รถยนต์ไม่ใช่แค่เครื่องจักร แต่คือผลงานศิลปะที่สะท้อนถึงวิศวกรรมขั้นสูง</span> และด้วยความเชื่อนี้เองที่ผลักดันให้พวกเราทุกคนมุ่งมั่นศึกษาและฝึกฝน เพื่อก้าวเข้าสู่เส้นทางของการเป็นวิศวกรยานยนต์ในอนาคต
+                </p>
+            </div>
+
+            <div class="section">
+                <h2>ทำไมต้องทีม LAP?</h2>
+                <ul>
+                    <li><strong>ความรู้จากรั้วมารีย์ฯ:</strong> พวกเราได้รับการถ่ายทอดความรู้พื้นฐานที่แข็งแกร่งจากคณาจารย์ผู้เชี่ยวชาญ ทำให้เราเข้าใจหลักการทำงานของเครื่องยนต์ กลไกต่างๆ และระบบไฟฟ้าในรถยนต์เป็นอย่างดี</li>
+                    <li><strong>ประสบการณ์จริง:</strong> นอกจากทฤษฎีแล้ว พวกเรายังได้ลงมือปฏิบัติจริงกับรถยนต์หลากหลายประเภท ทั้งการซ่อมบำรุง การปรับแต่ง และการแก้ไขปัญหาต่างๆ ซึ่งช่วยให้เรามีทักษะที่พร้อมใช้งานจริง</li>
+                    <li><strong>ความมุ่งมั่น:</strong> ทุกคนในทีมมีเป้าหมายเดียวกันคือการเป็น <strong>วิศวกร</strong> ที่สามารถสร้างสรรค์ พัฒนา และดูแลรักษารถยนต์ให้มีประสิทธิภาพสูงสุดได้</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>เราทำอะไรบ้าง?</h2>
+                <p>
+                    พวกเราคือกลุ่มคนที่ชอบศึกษา ทดลอง และแบ่งปันความรู้เกี่ยวกับยานยนต์ ไม่ว่าจะเป็นเรื่อง
+                </p>
+                <ul>
+                    <li>เทคโนโลยีใหม่ๆ ในวงการรถยนต์</li>
+                    <li>การปรับแต่งเครื่องยนต์และการออกแบบ</li>
+                    <li>การดูแลรักษารถยนต์เบื้องต้นสำหรับบุคคลทั่วไป</li>
+                </ul>
+            </div>
+
+            <div class="contact">
+                <p>
+                    ถ้าคุณเป็นคนหนึ่งที่สนใจในเรื่องรถยนต์เช่นเดียวกับพวกเรา หรือกำลังมองหาทีมที่มีความรู้ความสามารถเพื่อพัฒนาโปรเจกต์ต่างๆ ในอนาคต <strong>ทีม LAP</strong> พร้อมที่จะเรียนรู้และทำงานร่วมกับคุณ
+                </p>
+                <p>
+                    ติดต่อพวกเราได้เลย เพื่อร่วมกันสร้างสรรค์และขับเคลื่อนความฝันในโลกยานยนต์ไปด้วยกัน!
+                </p>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <section id="skills" class="page">
-        <h2>ทักษะ</h2>
-        <div class="skill-list">
-            <div class="skill-item html">HTML</div>
-            <div class="skill-item css">CSS</div>
-            <div class="skill-item js">JavaScript</div>
-        </div>
-    </section>
-
-    <section id="portfolio" class="page">
-        <h2>ผลงาน</h2>
-        <div class="project-grid">
-            <div class="project-item">โปรเจกต์ 1</div>
-            <div class="project-item">โปรเจกต์ 2</div>
-        </div>
-    </section>
-
-    <section id="contact" class="page">
-        <h2>ติดต่อ</h2>
-        <div class="social-links">
-            <a href="#">Facebook</a>
-            <a href="#">LinkedIn</a>
-        </div>
-    </section>
-
-    <script>
-        // โค้ดทั้งหมดจากไฟล์ script.js
-        document.addEventListener('DOMContentLoaded', () => {
-            const pages = document.querySelectorAll('.page');
-            let currentPageIndex = 0;
-
-            pages[currentPageIndex].classList.add('active');
-
-            function showNextPage() {
-                pages[currentPageIndex].classList.remove('active');
-                currentPageIndex = (currentPageIndex + 1) % pages.length;
-                pages[currentPageIndex].classList.add('active');
-            }
-
-            document.addEventListener('keydown', (event) => {
-                if (event.key === ' ' || event.key === 'ArrowRight') {
-                    showNextPage();
-                }
-            });
-        });
-    </script>
 </body>
 </html>
