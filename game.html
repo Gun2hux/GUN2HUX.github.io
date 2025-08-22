@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เกมจับคู่สี - ธนกฤต เนตรประสพสุข 28</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 40px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .name {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .age {
+            font-size: 1.5em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .game-title {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #FFE4B5;
+        }
+        
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .card {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card.matched {
+            opacity: 0.7;
+            transform: scale(0.9);
+            cursor: default;
+        }
+        
+        .controls {
+            margin-top: 20px;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 0 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .congratulations {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="name">ธนกฤต เนตรประสพสุข</div>
+        <div class="age">อายุ 28 ปี</div>
+        <div class="game-title">🎮 เกมจับคู่สี 🎮</div>
+    </div>
+
+    <div class="game-container">
+        <div class="score-board">
+            <div>คะแนน: <span id="score">0</span></div>
+            <div>จับคู่แล้ว: <span id="matches">0</span>/8</div>
+            <div>เวลา: <span id="time">0</span>s</div>
+        </div>
+        
+        <div class="game-board" id="gameBoard"></div>
+        
+        <div class="controls">
+            <button class="btn" onclick="startNewGame()">🎮 เกมใหม่</button>
+            <button class="btn" onclick="resetGame()" style="background: linear-gradient(45deg, #4ECDC4, #44A08D);">🔄 รีเซ็ต</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="congratulations" id="congratulations">
+        <div>🎉 ยินดีด้วย! 🎉</div>
+        <div style="margin: 15px 0; font-size: 1.2em;">คุณทำได้!</div>
+        <div>เวลาที่ใช้: <span id="finalTime"></span> วินาที</div>
+        <div>คะแนนรวม: <span id="finalScore"></span></div>
+        <button class="btn" onclick="closeModal()" style="margin-top: 20px;">เล่นอีกครั้ง</button>
+    </div>
+
+    <script>
+        let gameState = {
+            cards: [],
+            flippedCards: [],
+            matchedPairs: 0,
+            score: 0,
+            timeElapsed: 0,
+            gameTimer: null,
+            isGameActive: false
+        };
+
+        const colors = [
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4',
+            '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F'
+        ];
+
+        const emojis = ['🔴', '🔵', '🟢', '🟡', '🟠', '🟣', '🟤', '⚫'];
+
+        function initializeGame() {
+            const cardPairs = [];
+            for (let i = 0; i < 8; i++) {
+                cardPairs.push({ id: i, color: colors[i], emoji: emojis[i] });
+                cardPairs.push({ id: i, color: colors[i], emoji: emojis[i] });
+            }
+            
+            gameState.cards = shuffleArray(cardPairs);
+            gameState.flippedCards = [];
+            gameState.matchedPairs = 0;
+            gameState.score = 0;
+            gameState.timeElapsed = 0;
+            gameState.isGameActive = true;
+            
+            createGameBoard();
+            updateDisplay();
+            startTimer();
+        }
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function createGameBoard() {
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+            
+            gameState.cards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card';
+                cardElement.style.background = 'linear-gradient(145deg, #8e9aaf, #cbc0d3)';
+                cardElement.innerHTML = '?';
+                cardElement.onclick = () => flipCard(index);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard(index) {
+            if (!gameState.isGameActive) return;
+            if (gameState.flippedCards.length >= 2) return;
+            if (gameState.flippedCards.includes(index)) return;
+            
+            const cardElement = document.querySelectorAll('.card')[index];
+            const card = gameState.cards[index];
+            
+            cardElement.style.background = card.color;
+            cardElement.innerHTML = card.emoji;
+            cardElement.classList.add('flipped');
+            
+            gameState.flippedCards.push(index);
+            
+            if (gameState.flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
+            }
+        }
+
+        function checkMatch() {
+            const [firstIndex, secondIndex] = gameState.flippedCards;
+            const firstCard = gameState.cards[firstIndex];
+            const secondCard = gameState.cards[secondIndex];
+            
+            if (firstCard.id === secondCard.id) {
+                // Match found!
+                const cardElements = document.querySelectorAll('.card');
+                cardElements[firstIndex].classList.add('matched');
+                cardElements[secondIndex].classList.add('matched');
+                
+                gameState.matchedPairs++;
+                gameState.score += 100;
+                
+                if (gameState.matchedPairs === 8) {
+                    endGame();
+                }
+            } else {
+                // No match
+                const cardElements = document.querySelectorAll('.card');
+                cardElements[firstIndex].style.background = 'linear-gradient(145deg, #8e9aaf, #cbc0d3)';
+                cardElements[firstIndex].innerHTML = '?';
+                cardElements[firstIndex].classList.remove('flipped');
+                
+                cardElements[secondIndex].style.background = 'linear-gradient(145deg, #8e9aaf, #cbc0d3)';
+                cardElements[secondIndex].innerHTML = '?';
+                cardElements[secondIndex].classList.remove('flipped');
+                
+                gameState.score = Math.max(0, gameState.score - 10);
+            }
+            
+            gameState.flippedCards = [];
+            updateDisplay();
+        }
+
+        function startTimer() {
+            if (gameState.gameTimer) clearInterval(gameState.gameTimer);
+            
+            gameState.gameTimer = setInterval(() => {
+                gameState.timeElapsed++;
+                updateDisplay();
+            }, 1000);
+        }
+
+        function updateDisplay() {
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('matches').textContent = gameState.matchedPairs;
+            document.getElementById('time').textContent = gameState.timeElapsed;
+        }
+
+        function endGame() {
+            gameState.isGameActive = false;
+            clearInterval(gameState.gameTimer);
+            
+            const bonus = Math.max(0, 300 - gameState.timeElapsed * 2);
+            gameState.score += bonus;
+            
+            document.getElementById('finalTime').textContent = gameState.timeElapsed;
+            document.getElementById('finalScore').textContent = gameState.score;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('congratulations').style.display = 'block';
+        }
+
+        function startNewGame() {
+            closeModal();
+            initializeGame();
+        }
+
+        function resetGame() {
+            closeModal();
+            if (gameState.gameTimer) clearInterval(gameState.gameTimer);
+            gameState.isGameActive = false;
+            
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+            
+            gameState.score = 0;
+            gameState.matchedPairs = 0;
+            gameState.timeElapsed = 0;
+            updateDisplay();
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('congratulations').style.display = 'none';
+        }
+
+        // เริ่มเกมเมื่อโหลดหน้าเว็บ
+        window.onload = function() {
+            initializeGame();
+        };
+    </script>
+</body>
+</html>
